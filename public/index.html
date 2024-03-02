@@ -1,0 +1,111 @@
+
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyB2582DqbeUPDZR3tO3Vy3jf1QL7Oe12DE",
+  authDomain: "stylco-3dc2a.firebaseapp.com",
+  projectId: "stylco-3dc2a",
+  storageBucket: "stylco-3dc2a.appspot.com",
+  messagingSenderId: "907092652132",
+  appId: "1:907092652132:web:43a5d58fa9cdc1cca56f71",
+  measurementId: "G-B65TQ5FDBN"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+  </script>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    #sentimentAnalyzer {
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+    }
+
+    #inputText {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+    }
+
+    #analyzeButton {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 16px;
+      font-weight: bold;
+    }
+  </style>
+  <title>Sentiment Analyzer</title>
+</head>
+<body>
+  <div id="sentimentAnalyzer">
+    <h2>Sentiment Analyzer</h2>
+    <textarea id="inputText" placeholder="Enter text to analyze"></textarea>
+    <button id="analyzeButton">Analyze Sentiment</button>
+    <p id="result"></p>
+  </div>
+  <script>var analyzeButton = document.getElementById('analyzeButton');
+    var inputText = document.getElementById('inputText');
+    var resultElement = document.getElementById('result');
+    
+    analyzeButton.addEventListener('click', function() {
+      var textToAnalyze = inputText.value.trim();
+    
+      fetch('https://us-central1-stylco-3dc2a.cloudfunctions.net/analyzeText', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: textToAnalyze }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('result').textContent = 'Sentiment: ' + data.sentiment;
+          // Handle the result as needed
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    });
+    
+    </script>
+</body>
+
+</html>
