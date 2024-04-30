@@ -31,3 +31,45 @@ def on_request_example(req: https_fn.Request) -> https_fn.Response:
 
 
 
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "./LandingScreenOption.module.css";
+
+const LandingScreenOption = () => {
+  const navigate = useNavigate();
+
+  const onLandingScreenOption1ContainerClick = useCallback(() => {
+    navigate("/landing-screen-option-2");
+  }, [navigate]);
+
+  const onSocialClick = useCallback(() => {
+    navigate("/landing-screen-option-2");
+  }, [navigate]);
+
+  const onContinueContainerClick = useCallback(() => {
+    navigate("/onboarding-step-2");
+  }, [navigate]);
+
+  return (
+    <div
+      className={styles.landingScreenOption1}
+      onClick={onLandingScreenOption1ContainerClick}
+    >
+      <img className={styles.image11Icon} alt="" src="/image-11@2x.png" />
+      <img
+        className={styles.socialIcon}
+        alt=""
+        src="/social.svg"
+        onClick={onSocialClick}
+      />
+      <div className={styles.continue} onClick={onContinueContainerClick}>
+        <div className={styles.continueChild} />
+        <b className={styles.alreadyHaveAn}>ALREADY HAVE AN ACCOUNT</b>
+      </div>
+      <div className={styles.landingScreenOption1Child} />
+      <b className={styles.stylco}>StylCo</b>
+    </div>
+  );
+};
+
+export default LandingScreenOption;
